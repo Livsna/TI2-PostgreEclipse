@@ -20,7 +20,7 @@ public class PlayerDAO extends DAO {
 		boolean status = false;
 		try {  
 			Statement st = conexao.createStatement();
-			String sql = "INSERT INTO usuario (codigo, login, senha, sexo) "
+			String sql = "INSERT INTO usuario (nick, rank, main, idade) "
 				       + "VALUES ("+player.getNick()+ ", '" + player.getRank() + "', '"  
 				       + player.getRank() + "', '" + player.getIdade() + "');";
 			System.out.println(sql);
@@ -92,27 +92,6 @@ public class PlayerDAO extends DAO {
 		}
 		return usuarios;
 	}
-
-
-	public List<Player> getSexoMasculino() {
-		List<Player> players = new ArrayList<Player>();
-		
-		try {
-			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			String sql = "SELECT * FROM usuario WHERE usuario.sexo LIKE 'M'";
-			System.out.println(sql);
-			ResultSet rs = st.executeQuery(sql);	           
-	        while(rs.next()) {	            	
-	        	Player u = new Player(rs.getString("nick"), rs.getString("rank"), rs.getString("main"), rs.getInt("idade"));
-	            usuarios.add(u);
-	        }
-	        st.close();
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-		return players;
-	}
-	
 	
 	public boolean update(Player player) {
 		boolean status = false;
